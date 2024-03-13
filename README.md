@@ -1,3 +1,4 @@
+
 ![Solar System Gallery](images/sun_bg.jpg)
 
 # Solar System Guide Gallery
