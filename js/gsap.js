@@ -1,18 +1,18 @@
-export function typeAnimation(selector, speed) {
-    document.querySelectorAll(selector).forEach((element) => {
-        // Split text into characters
-        const text = element.textContent;
-        const characters = text.split('');
-        element.textContent = '';
+export function greensock() {
 
-        // Animate each character
-        characters.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            element.appendChild(span);
+    const introTextElements = document.querySelectorAll('.properties');
 
-            // Use GSAP to animate the opacity and optionally, slight y translation
-            gsap.fromTo(span, { opacity: 0, y: -5 }, { opacity: 1, y: 0, delay: index * speed, duration: speed });
-        })
-    })
+    introTextElements.forEach((element) => {
+        gsap.from(element, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            scrollTrigger: {
+                trigger: element,
+                start: 'top 80%',
+                end: 'bottom 20%',
+                toggleActions: 'play play none reverse',
+            },
+        });
+    });
 }
