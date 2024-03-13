@@ -1,15 +1,14 @@
 import { CelestialBody } from './celestial.js';
+import { greensock } from './gsap.js';
 import { setupSlider } from './slider.js';
-import { typeAnimation } from './gsap.js';
 
-
-
-
-
+greensock();
+setupSlider();
 
 // Sun
 const sun = new CelestialBody(
     "Sun",
+    "The Sun is the star at the center of the Solar System. It is a nearly perfect sphere of hot plasma, with internal convective motion that generates a magnetic field via a dynamo process. It is by far the most important source of energy for life on Earth. The Sun's diameter is about 1.39 million kilometers, i.e., 109 times that of Earth, and its mass is about 330,000 times that of Earth, accounting for about 99.86% of the total mass of the Solar System.",
     1392700, // Diameter in km
     1.989e30, // Mass in kg
     274, // Gravity in m/s²
@@ -28,6 +27,7 @@ const sun = new CelestialBody(
 // Planets
 const mercury = new CelestialBody(
     "Mercury",
+    "Mercury is the smallest and innermost planet in the Solar System. It is named after the Roman deity Mercury, the messenger of the gods. Mercury is a rocky planet, composed mostly of silicate minerals and metals. It has no natural satellites and no substantial atmosphere, meaning it has a surface that is heavily cratered and similar in appearance to the Moon.",
     4879,
     3.3011e23,
     3.7,
@@ -45,6 +45,7 @@ const mercury = new CelestialBody(
 
 const venus = new CelestialBody(
     "Venus",
+    "Venus is the second planet from the Sun. It is named after the Roman goddess of love and beauty. It is often called Earth's sister planet because of their similar size, mass, proximity to the Sun, and bulk composition. However, it has a dense atmosphere that consists mainly of carbon dioxide, which causes a runaway greenhouse effect that raises its surface temperature to about 462 degrees Celsius.",
     12104,
     4.867e24,
     8.87,
@@ -62,6 +63,7 @@ const venus = new CelestialBody(
 
 const earth = new CelestialBody(
     "Earth",
+    "Earth is the third planet from the Sun and the only astronomical object known to harbor and support life. It is home to millions of species, including humans. Earth's atmosphere primarily consists of nitrogen and oxygen. It has one natural satellite, the Moon, which plays a significant role in stabilizing Earth's axial tilt and thus its climate.",
     12756,
     5.972e24,
     9.807,
@@ -79,6 +81,7 @@ const earth = new CelestialBody(
 
 const mars = new CelestialBody(
     "Mars",
+    "Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System, after Mercury. It is often called the 'Red Planet' because of its reddish appearance, which is caused by iron oxide prevalent on its surface. Mars has surface features reminiscent of both the impact craters of the Moon and the valleys, deserts, and polar ice caps of Earth.",
     6779,
     6.417e23,
     3.721,
@@ -96,6 +99,7 @@ const mars = new CelestialBody(
 
 const jupiter = new CelestialBody(
     "Jupiter",
+    "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass one-thousandth that of the Sun but is two and a half times the mass of all the other planets in the Solar System combined. Jupiter is primarily composed of hydrogen and helium. It lacks a well-defined solid surface, but it may have a solid core at its center.",
     139820,
     1.898e27,
     24.79,
@@ -113,6 +117,7 @@ const jupiter = new CelestialBody(
 
 const saturn = new CelestialBody(
     "Saturn",
+    "Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius about nine times that of Earth. It has a prominent ring system that consists of nine continuous main rings and three discontinuous arcs. Saturn is primarily composed of hydrogen and helium.",
     116460,
     5.683e26,
     10.44,
@@ -130,6 +135,7 @@ const saturn = new CelestialBody(
 
 const uranus = new CelestialBody(
     "Uranus",
+    "Uranus is the seventh planet from the Sun and the third-largest in the Solar System. It is the coldest planetary atmosphere in the Solar System, with a minimum temperature of -224°C. Like the other giant planets, Uranus has a ring system, a magnetosphere, and numerous moons. The atmosphere of Uranus is composed primarily of hydrogen and helium.",
     50724,
     8.681e25,
     8.69,
@@ -147,6 +153,7 @@ const uranus = new CelestialBody(
 
 const neptune = new CelestialBody(
     "Neptune",
+    "Neptune is the eighth planet from the Sun and the fourth-largest in the Solar System. It is named after the Roman god of the sea and has the fastest winds in the Solar System, reaching speeds of up to 2,100 kilometers per hour. Neptune's atmosphere is primarily composed of hydrogen, helium, and methane.",
     49244,
     1.024e26,
     11.15,
@@ -164,6 +171,7 @@ const neptune = new CelestialBody(
 
 const pluto = new CelestialBody(
     "Pluto",
+    "Although no longer officially a planet, Pluto is a large world in the Kuiper belt, a ring of bodies beyond Neptune. It was discovered in 1930 and was long considered the ninth planet. However, in 2006, the International Astronomical Union reclassified Pluto as a 'dwarf planet' due to its small size and eccentric orbit.",
     2376,
     1.309e22,
     0.62,
@@ -179,19 +187,27 @@ const pluto = new CelestialBody(
     "Nitrogen snow"
 );
 
-
-
 const bodies = [sun, mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto];
 
+// Append celestial body properties to respective HTML elements
+const appendProperties = (element, celestialBody) => {
+    const propertiesDiv = celestialBody.createItemElement();
+    element.querySelector('.properties').appendChild(propertiesDiv);
+};
 
+const celestialElements = [
+    document.querySelector('.item.sun'),
+    document.querySelector('.item.mercury'),
+    document.querySelector('.item.venus'),
+    document.querySelector('.item.earth'),
+    document.querySelector('.item.mars'),
+    document.querySelector('.item.jupiter'),
+    document.querySelector('.item.saturn'),
+    document.querySelector('.item.uranus'),
+    document.querySelector('.item.neptune'),
+    document.querySelector('.item.pluto')
+];
 
-
-const slider = document.querySelector('.slider');
-
-function activate(e) {
-    const items = document.querySelectorAll('.item');
-    e.target.matches('.next') && slider.append(items[0])
-    e.target.matches('.prev') && slider.prepend(items[items.length - 1]);
-}
-
-document.addEventListener('click', activate, false);
+celestialElements.forEach((element, index) => {
+    appendProperties(element, bodies[index]);
+});
